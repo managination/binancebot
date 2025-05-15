@@ -133,7 +133,6 @@ This step should be relatively slow, as all the coins will be loaded in BigQuery
 You can now create models for each coin using the stored procedure to train them : 
 ```
 bq query --nouse_legacy_sql "CALL `PROJECT_ID.models.update_model_COIN`();"
-bq query --nouse_legacy_sql "CALL `PROJECT_ID.models.update_model_COIN`();"
 ```
 
 After the training, you should be able to see something similar to this in the "models" dataset:

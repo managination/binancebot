@@ -2,7 +2,7 @@ terraform {
   required_providers {
     google = {
       source = "hashicorp/google"
-      version = "3.5.0"
+      version = "4.84.0"
     }
   }
 }
@@ -27,5 +27,5 @@ resource "google_app_engine_application" "app" {
 
 variable "project" {
   type = string
-  default = "trading-dv"
+  default = "binancebot-459819"
 }

@@ -7,12 +7,20 @@ import json
 import time
 import requests
 import os
+import sys
 
 from google.cloud import bigquery
 
-bq_client = bigquery.Client()
 START_TIME = round(time.time()) * 1000 - 2 * 365 * 24 * 60 * 60 * 1000
 PROJECT = os.getenv('TF_VAR_project')
+
+# Check if the PROJECT environment variable is set
+if PROJECT is None:
+    print("Error: TF_VAR_project environment variable is not set.")
+    print("Please set it using: export TF_VAR_project=YOUR_GCP_PROJECT_ID")
+    sys.exit(1)
+
+bq_client = bigquery.Client()
 
 
 def insert_data(coin, data):
@@ -143,10 +151,15 @@ def main():
     API between now and the START_TIME defined in this script.
     """
 
-    with open("coin.lst", "r") as file:
+    # Use the path relative to the script location
+    import os
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    coin_lst_path = os.path.join(script_dir, "coin.lst")
+
+    with open(coin_lst_path, "r") as file:
         coin = file.readline()
         while coin:
-            coin = coin[:-1]
+            coin = coin.strip()
             print(f"\n\nLoading data for {coin}")
             gaps = get_gaps(coin)
             print(f"Found {len(gaps)} gaps")

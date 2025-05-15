@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+echo "TF_VAR_project: $TF_VAR_project"
+
 coinlist="[";
+export TF_VAR_project="$TF_VAR_project"
 cat coin.lst | ( while IFS=';' read coin_name; do
     echo "$coin_name"
     coinlist+="\"$coin_name\", "
@@ -41,9 +44,12 @@ for d in ../iac/functions/*/ ; do
         for file_path in $d*;
         do
             file_template=$(echo $file_path | sed "s/.*\///");
+            echo "Replacing trading-dv with $TF_VAR_project in $file_path"
+            # Use a temporary variable to store the project ID
+            project_id="$TF_VAR_project"
             cat $file_path \
              | sed "s/\[\"BTC\", \"ETH\", \"SOL\"\]/$coinlist/" \
-             | sed "s/trading-dv/$TF_VAR_project/" > ../iac/functions/build/$function_name/$file_template;
+             | sed "s/trading-dv/$project_id/" > ../iac/functions/build/$function_name/$file_template;
         done;
     fi;
 
