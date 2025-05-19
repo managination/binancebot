@@ -9,14 +9,14 @@ terraform {
 
 provider "google" {
   project = var.project
-  region  = "eu-west1"
-  zone    = "eu-west1-a"
+  region  = "europe-west1"
+  zone    = "europe-west1-b"
 }
 
 provider "google-beta" {
   project = var.project
-  region  = "eu-west1"
-  zone    = "eu-west1-a"
+  region  = "europe-west1"
+  zone    = "europe-west1-b"
 }
 
 resource "google_app_engine_application" "app" {

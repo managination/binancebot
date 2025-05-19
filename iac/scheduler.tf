@@ -13,7 +13,7 @@ resource "google_cloud_scheduler_job" "load_data_job" {
 resource "google_cloud_scheduler_job" "trigger_trading_bot" {
   name        = "trading-bot"
   description = "trigger bot to make predictions"
-  schedule    = "* * * * *"
+  schedule    = "*/5 * * * *"
   region      = "europe-west1"
 
   pubsub_target {

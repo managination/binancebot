@@ -80,7 +80,7 @@ resource "google_secret_manager_secret_iam_binding" "binding" {
   ]
 }
 
-resource "google_secret_manager_secret_iam_binding" "binding-private" {
+resource "google_secret_manager_secret_iam_binding" "binding_private" {
   provider = google-beta
   project = var.project
   secret_id = google_secret_manager_secret.secret-binance-private.secret_id
